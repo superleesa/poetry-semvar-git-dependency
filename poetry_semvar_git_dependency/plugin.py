@@ -13,7 +13,20 @@ if TYPE_CHECKING:
 
 
 class SemvarGitDependencyPlugin(Plugin):
+    COMMANDS = [
+        "add",
+        "install",
+        "lock",
+        "sync",
+        "update",
+    ]
+
     def activate(self, poetry: Poetry, io: IO) -> None:
+        # FIXME: i think there is a better way to do this...
+        if len(sys.argv) > 1 and sys.argv[1] in SemvarGitDependencyPlugin.COMMANDS:
+            self.override_semver_dependency(poetry, io)
+
+    def override_semver_dependency(self, poetry: Poetry, io: IO) -> None:
         io.write_line("initial plugin activation")
         
         # TODO: only apply this for install / update / add
