@@ -11,18 +11,18 @@ from poetry.vcs.git import Git
 from poetry.packages.direct_origin import DirectOrigin
 
 
-from poetry_semvar_git_dependency.core.constraints.version.parser import (
+from poetry_semver_git_dependency.core.constraints.version.parser import (
     is_sem_ver_constraint,
 )
-from poetry_semvar_git_dependency.core.packages.semvar_git_dependency import (
-    SemvarGitDependency,
+from poetry_semver_git_dependency.core.packages.semver_git_dependency import (
+    SemverGitDependency,
 )
-from poetry_semvar_git_dependency.repositories.constants import REPO_NAME
+from poetry_semver_git_dependency.repositories.constants import REPO_NAME
 
 
-class SemvarGitRepository(Repository):
+class SemverGitRepository(Repository):
     """
-    Repository for all semvar git dependencies
+    Repository for all semver git dependencies
 
     TOOD: we want to make use of HTTPRepository / CacheRepository in the future for better performance
     """
@@ -79,7 +79,7 @@ class SemvarGitRepository(Repository):
         See: dulwich documentation for git-related operations: https://www.dulwich.io/docs/tutorial/tag.html
         """
         if (
-            not isinstance(dependency, SemvarGitDependency)
+            not isinstance(dependency, SemverGitDependency)
             or dependency.source_url is None
         ):
             return []

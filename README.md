@@ -1,1 +1,1 @@
-# poetry-semvar-git-dependency
+# poetry-semver-git-dependency

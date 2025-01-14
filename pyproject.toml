@@ -1,7 +1,7 @@
 [project]
-name = "poetry-semvar-git-dependency"
+name = "poetry-semver-git-dependency"
 version = "0.1.0"
-description = "A Poetry plugin to enable semvar syntax for git dependency"
+description = "A Poetry plugin to enable semver syntax for git dependency"
 authors = [
     {name = "Satoshi",email = "6world4trigger@gmail.com"}
 ]
@@ -17,4 +17,4 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.plugins."poetry.plugin"]
-"poetry-semvar-git-dependency" = "poetry_semvar_git_dependency.plugin:SemvarGitDependencyPlugin"
+"poetry-semver-git-dependency" = "poetry_semver_git_dependency.plugin:SemverGitDependencyPlugin"
