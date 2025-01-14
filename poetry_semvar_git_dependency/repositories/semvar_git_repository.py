@@ -83,13 +83,15 @@ class SemvarGitRepository(Repository):
             or dependency.source_url is None
         ):
             return []
-        
+
         repo = Git.clone(url=dependency.source_url)
         available_tag_shas = tag_list(repo)  # this returns SHA1 bytes
-        available_tags: list[Tag] = [cast(Tag, repo.get_object(tag)) for tag in available_tag_shas]
+        available_tags: list[Tag] = [
+            cast(Tag, repo.get_object(tag)) for tag in available_tag_shas
+        ]
         sem_ver_tags = [
             tag for tag in available_tags if is_sem_ver_constraint(tag.name)
-        ]  # FIXME: i think this should not check semver constraint, but instead check if it is a valid version tag
+        ]
 
         if not sem_ver_tags:
             return []
