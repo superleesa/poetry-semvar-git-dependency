@@ -1,0 +1,1 @@
+REPO_NAME = "semvar_git"

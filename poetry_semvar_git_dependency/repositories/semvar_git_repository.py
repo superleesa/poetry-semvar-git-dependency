@@ -17,6 +17,7 @@ from poetry_semvar_git_dependency.core.constraints.version.parser import (
 from poetry_semvar_git_dependency.core.packages.semvar_git_dependency import (
     SemvarGitDependency,
 )
+from poetry_semvar_git_dependency.repositories.constants import REPO_NAME
 
 
 class SemvarGitRepository(Repository):
@@ -26,13 +27,11 @@ class SemvarGitRepository(Repository):
     TOOD: we want to make use of HTTPRepository / CacheRepository in the future for better performance
     """
 
-    REPO_NAME = "semvar_git"
-
     def __init__(
         self,
     ) -> None:
         super().__init__(
-            name=SemvarGitRepository.REPO_NAME,
+            name=REPO_NAME,
         )
 
     def find_packages(self, dependency: Dependency) -> list[Package]:

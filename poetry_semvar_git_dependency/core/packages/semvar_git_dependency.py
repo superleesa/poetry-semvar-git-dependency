@@ -1,8 +1,6 @@
 from poetry.core.packages.dependency import Dependency
 
-from poetry_semvar_git_dependency.repositories.semvar_git_repository import (
-    SemvarGitRepository,
-)
+from poetry_semvar_git_dependency.repositories.constants import REPO_NAME
 
 
 class SemvarGitDependency(Dependency):
@@ -19,7 +17,7 @@ class SemvarGitDependency(Dependency):
             source_url=source_url,
             source_type=source_type,
         )  # FIXME: for now we assume no extras
-        self.source_name = SemvarGitRepository.REPO_NAME  # this is used to find the corresponding repository: https://github.com/python-poetry/poetry/blob/bd500dd3bdfaec3de6894144c9cedb3a9358be84/src/poetry/repositories/repository_pool.py#L174
+        self.source_name = REPO_NAME  # this is used to find the corresponding repository: https://github.com/python-poetry/poetry/blob/bd500dd3bdfaec3de6894144c9cedb3a9358be84/src/poetry/repositories/repository_pool.py#L174
 
     def is_direct_origin(self) -> bool:
         # by default if `source_type` is "git" it is a direct origin;
