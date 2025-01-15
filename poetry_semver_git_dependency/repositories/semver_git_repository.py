@@ -89,7 +89,7 @@ class SemverGitRepository(Repository):
             not isinstance(dependency, SemverGitDependency)
             or dependency.source_url is None
         ):
-            return []
+            raise ValueError("SemverGitRepository can only handle SemverGitDependency")
 
         repo = self.Git.clone(url=dependency.source_url)
         available_tags = get_tags(repo)
