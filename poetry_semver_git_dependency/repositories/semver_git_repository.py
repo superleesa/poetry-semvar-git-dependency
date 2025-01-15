@@ -115,7 +115,8 @@ class SemverGitRepository(Repository):
 
         packages = []
         for tag in matched_tags:
-            checkout_branch(repo, tag.id)
+            _, commit_id = tag._get_object()
+            checkout_branch(repo, commit_id)
             package = DirectOrigin.get_package_from_directory(path)
             package._source_type = "git"
             package._source_url = dependency.source_url
