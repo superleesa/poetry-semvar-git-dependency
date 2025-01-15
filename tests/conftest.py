@@ -26,7 +26,7 @@ def mock_git_repo() -> Generator[Repo, Any, None]:
     # repo_path = str(Path(r"C:\Users\super\Documents\8.workspace\practice_poetry_plugin\dump"))
     repo = Repo.init(repo_path)
 
-    tags = ["1.0", "1.1", "2.0"]
+    tags = ["1.0.0", "2.0.1", "2.1.1"]
     pyprojects = [PYPROJECT_V1_0, PYPROJECT_V2_0_1, PYPROJECT_V2_1_1]
     for tag_name, pyproject in zip(tags, pyprojects):
         create_file_and_tag_commit(pyproject, "pyproject.toml", tag_name, repo)
