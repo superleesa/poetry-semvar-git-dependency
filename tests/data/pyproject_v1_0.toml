@@ -1,0 +1,11 @@
+[project]
+name = "mock-project"
+version = "1.0.0"
+description = "Mock project for v1.0"
+authors = [
+    {name = "Mock User",email = "mockuser@gmail.com"}
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
