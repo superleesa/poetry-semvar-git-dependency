@@ -95,7 +95,9 @@ class SemverGitRepository(Repository):
         repo = self.Git.clone(url=dependency.source_url)
         available_tags = get_tags(repo)
         sem_ver_tags = [
-            tag for tag in available_tags if is_sem_ver_constraint(tag.name)
+            tag
+            for tag in available_tags
+            if tag is not None and is_sem_ver_constraint(tag.name.decode("utf-8"))
         ]
 
         if not sem_ver_tags:
@@ -104,7 +106,7 @@ class SemverGitRepository(Repository):
         # find all matching tags
         matched_tags: list[Tag] = []
         for tag in sem_ver_tags:
-            if dependency.constraint.allows(Version.parse(tag.name)):
+            if dependency.constraint.allows(Version.parse(tag.name.decode("utf-8"))):
                 matched_tags.append(tag)
 
         path = Path(repo.path)
@@ -117,6 +119,6 @@ class SemverGitRepository(Repository):
             package = DirectOrigin.get_package_from_directory(path)
             package._source_type = "git"
             package._source_url = dependency.source_url
-            package._source_reference = tag.name
+            package._source_reference = tag.name.decode("utf-8")
             packages.append(package)
         return packages
