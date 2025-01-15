@@ -33,6 +33,7 @@ class SemverGitRepository(Repository):
         super().__init__(
             name=REPO_NAME,
         )
+        self.Git = Git
 
     def find_packages(self, dependency: Dependency) -> list[Package]:
         """
@@ -84,11 +85,7 @@ class SemverGitRepository(Repository):
         ):
             return []
 
-        repo = Git.clone(url=dependency.source_url)
-        available_tag_shas = tag_list(repo)  # this returns SHA1 bytes
-        available_tags: list[Tag] = [
-            cast(Tag, repo.get_object(tag)) for tag in available_tag_shas
-        ]
+        repo = self.Git.clone(url=dependency.source_url)
         sem_ver_tags = [
             tag for tag in available_tags if is_sem_ver_constraint(tag.name)
         ]
