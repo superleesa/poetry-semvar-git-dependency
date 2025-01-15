@@ -37,6 +37,7 @@ class SemverGitDependencyPlugin(Plugin):
         updated_dependency_groups: dict[str, DependencyGroup] = {}
         found_semver_tag = False
 
+        # patch dependency if it is a semver git dependency
         for group_name, group_dep in poetry.package._dependency_groups.items():
             updated_deps = []
             for dep in group_dep.dependencies:
@@ -58,6 +59,7 @@ class SemverGitDependencyPlugin(Plugin):
 
             group_dep._dependencies = updated_deps
 
+        # add semver git repository if semver git dependency is found
         if found_semver_tag:
             semver_git_repo = SemverGitRepository()
             repository_pool.add_repository(
