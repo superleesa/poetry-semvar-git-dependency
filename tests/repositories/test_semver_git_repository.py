@@ -47,6 +47,19 @@ GIT_2_1_1_PACKAGE = Package(
                 GIT_2_1_1_PACKAGE
             ],
         ),
+        (
+            SemverGitDependency(MOCK_PROJECT_NAME, MOCK_GIT_SOURCE_URL, ">=2.0"),
+            [
+                GIT_2_0_1_PACKAGE,
+                GIT_2_1_1_PACKAGE
+            ],
+        ),
+        (
+            SemverGitDependency(MOCK_PROJECT_NAME, MOCK_GIT_SOURCE_URL, "==2.0.1"),
+            [
+                GIT_2_0_1_PACKAGE,
+            ],
+        ),
     ],
 )
 def test___find_packages_from_dep(
