@@ -68,3 +68,7 @@ def create_dep_groups_from_raw_group_deps(
             group.add_dependency(dep)
         dep_groups[group_name] = group
     return dep_groups
+
+
+def compare_type_only(set1: set, set2: set) -> bool:
+    return set(map(type, set1)) == set(map(type, set2))
