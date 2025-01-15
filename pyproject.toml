@@ -6,7 +6,7 @@ authors = [
     {name = "Satoshi",email = "6world4trigger@gmail.com"}
 ]
 readme = "README.md"
-requires-python = "3.10"
+requires-python = ">=3.10,<4.0"
 dependencies = [
     "poetry (>=2.0.1,<3.0.0)",
     "pytest (>=8.3.4,<9.0.0)",
