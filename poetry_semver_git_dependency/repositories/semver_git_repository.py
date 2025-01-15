@@ -24,7 +24,8 @@ from poetry_semver_git_dependency.repositories.constants import REPO_NAME
 def get_tags(repo: Repo) -> list[Tag]:
     with open_repo_closing(repo) as r:
         tags = r.refs.as_dict(b"refs/tags")
-        tag_objects = [cast(Tag, repo.get_object(tag_ref)) for tag_ref in tags.values()]
+        possibly_tag_objects = [repo.get_object(tag_ref) for tag_ref in tags.values()]
+        tag_objects = [tag for tag in possibly_tag_objects if isinstance(tag, Tag)]
         return tag_objects
 
 
