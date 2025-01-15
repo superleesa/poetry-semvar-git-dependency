@@ -35,7 +35,7 @@ class SemverGitDependencyPlugin(Plugin):
 
     def override_semver_dependency(self, poetry: Poetry, io: IO) -> None:
         io.write_line("Overriding semver git dependencies...")
-        
+
         repository_pool = poetry.pool
         updated_dependency_groups: dict[str, DependencyGroup] = {}
         found_semver_tag = False
