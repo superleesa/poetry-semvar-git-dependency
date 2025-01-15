@@ -10,11 +10,8 @@ from poetry.core.packages.package import Package
 from poetry.core.packages.dependency import Dependency
 from poetry.vcs.git import Git
 from poetry.packages.direct_origin import DirectOrigin
+from poetry.core.version.exceptions import InvalidVersionError
 
-
-from poetry_semver_git_dependency.core.constraints.version.parser import (
-    is_sem_ver_constraint,
-)
 from poetry_semver_git_dependency.core.packages.semver_git_dependency import (
     SemverGitDependency,
 )
@@ -96,19 +93,19 @@ class SemverGitRepository(Repository):
 
         repo = self.Git.clone(url=dependency.source_url)
         available_tags = get_tags(repo)
-        sem_ver_tags = [
-            tag
-            for tag in available_tags
-            if tag is not None and is_sem_ver_constraint(tag.name.decode("utf-8"))
-        ]
 
-        if not sem_ver_tags:
+        if not available_tags:
             return []
 
         # find all matching tags
         matched_tags: list[Tag] = []
-        for tag in sem_ver_tags:
-            if dependency.constraint.allows(Version.parse(tag.name.decode("utf-8"))):
+        for tag in available_tags:
+            try:
+                version = Version.parse(tag.name.decode("utf-8"))
+            except InvalidVersionError:
+                continue
+
+            if dependency.constraint.allows(version):
                 matched_tags.append(tag)
 
         path = Path(repo.path)
