@@ -10,7 +10,7 @@ class SemverGitDependency(Dependency):
     """
 
     def __init__(self, name: str, source_url: str, semver_tag: str) -> None:
-        source_type = "git"  # `source_type` still needs to be "git" because installation method depends on this value: https://github.com/python-poetry/poetry/blob/88b2bab0f711a9eb2d3d61b0fa3ee370bf97e498/src/poetry/installation/executor.py#L529-L567
+        source_type = REPO_NAME  # this can't be "git" because if set to `git`, poetry will validate the path and raise error
         super().__init__(
             name=name,
             constraint=semver_tag,
