@@ -1,7 +1,8 @@
 from pathlib import Path
 from typing import cast
 
-from dulwich.porcelain import tag_list, checkout_branch
+from dulwich.porcelain import checkout_branch, open_repo_closing
+from dulwich.repo import Repo
 from dulwich.objects import Tag
 from poetry.repositories.repository import Repository
 from poetry.core.constraints.version import Version
