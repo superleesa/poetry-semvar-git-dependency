@@ -18,7 +18,11 @@ from tests.mock_constants import (
     MOCK_GIT_SOURCE_URL,
     MOCK_DEPENDENCY_NAME,
 )
-from tests.helpers import FakePoetry, create_project_package_from_raw_dep_groups, compare_type_only
+from tests.helpers import (
+    FakePoetry,
+    create_project_package_from_raw_dep_groups,
+    compare_type_only,
+)
 
 
 SEMVER_TAG_GIT_DEP = VCSDependency(
@@ -78,7 +82,7 @@ OTHER_DEP = Dependency(name=MOCK_DEPENDENCY_NAME.format(dep_id=3), constraint=">
                     {MAIN_GROUP: [NON_SEMVER_TAG_GIT_DEP]}
                 ),
             ),
-            []
+            [],
         ),
         (  # git with revision / branch not replaced
             FakePoetry(
@@ -93,7 +97,7 @@ OTHER_DEP = Dependency(name=MOCK_DEPENDENCY_NAME.format(dep_id=3), constraint=">
                     {MAIN_GROUP: [BRANCH_GIT_DEP]}
                 ),
             ),
-            []
+            [],
         ),
         (  # other non-vcs dependencies not replaced
             FakePoetry(
@@ -104,7 +108,7 @@ OTHER_DEP = Dependency(name=MOCK_DEPENDENCY_NAME.format(dep_id=3), constraint=">
                 MOCK_PROJECT_FILE_PATH,
                 create_project_package_from_raw_dep_groups({MAIN_GROUP: [OTHER_DEP]}),
             ),
-            []
+            [],
         ),
         (  # semver tag git dependency in other than MAIN group should also be replaced
             FakePoetry(
@@ -124,11 +128,13 @@ OTHER_DEP = Dependency(name=MOCK_DEPENDENCY_NAME.format(dep_id=3), constraint=">
     ],
 )
 def test_override_semver_dependency(
-    poetry: FakePoetry, expected_poetry: FakePoetry, expected_repos_added: list[Repository]
+    poetry: FakePoetry,
+    expected_poetry: FakePoetry,
+    expected_repos_added: list[Repository],
 ) -> None:
     initial_repositories = set(poetry.pool.repositories)
     print(initial_repositories)
-    
+
     io = Mock()
     SemverGitDependencyPlugin().override_semver_dependency(poetry, io)
 
@@ -146,4 +152,7 @@ def test_override_semver_dependency(
         )
 
     # ensure repository is added correctly
-    assert compare_type_only(set(poetry.pool.repositories) - set(initial_repositories), set(expected_repos_added))
+    assert compare_type_only(
+        set(poetry.pool.repositories) - set(initial_repositories),
+        set(expected_repos_added),
+    )

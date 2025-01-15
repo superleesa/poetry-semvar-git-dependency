@@ -1,7 +1,6 @@
 import sys
 
 from poetry.plugins.plugin import Plugin
-from poetry.core.packages.dependency_group import DependencyGroup
 from poetry.poetry import Poetry
 from cleo.io.io import IO
 
@@ -38,8 +37,11 @@ class SemverGitDependencyPlugin(Plugin):
         for group_name, group_dep in poetry.package._dependency_groups.items():
             updated_deps = []
             for dep in group_dep.dependencies:
-                if not dep.is_vcs() or dep.source_reference is None or dep.source_url is None or not is_sem_ver_constraint(
-                    dep.source_reference
+                if (
+                    not dep.is_vcs()
+                    or dep.source_reference is None
+                    or dep.source_url is None
+                    or not is_sem_ver_constraint(dep.source_reference)
                 ):
                     updated_deps.append(dep)
                     continue

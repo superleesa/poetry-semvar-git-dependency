@@ -42,6 +42,7 @@ class FakePoetry(Poetry):
     """
     This assumes that we are not interested in configs / lockers
     """
+
     def __init__(self, file: Path, package: ProjectPackage) -> None:
         mock_config = Mock()
         mock_locker = Mock()

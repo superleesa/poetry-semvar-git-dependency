@@ -41,18 +41,11 @@ GIT_2_1_1_PACKAGE = Package(
     [
         (
             SemverGitDependency(MOCK_PROJECT_NAME, MOCK_GIT_SOURCE_URL, ">=1.0"),
-            [
-                GIT_1_0_1_PACKAGE,
-                GIT_2_0_1_PACKAGE,
-                GIT_2_1_1_PACKAGE
-            ],
+            [GIT_1_0_1_PACKAGE, GIT_2_0_1_PACKAGE, GIT_2_1_1_PACKAGE],
         ),
         (
             SemverGitDependency(MOCK_PROJECT_NAME, MOCK_GIT_SOURCE_URL, ">=2.0"),
-            [
-                GIT_2_0_1_PACKAGE,
-                GIT_2_1_1_PACKAGE
-            ],
+            [GIT_2_0_1_PACKAGE, GIT_2_1_1_PACKAGE],
         ),
         (
             SemverGitDependency(MOCK_PROJECT_NAME, MOCK_GIT_SOURCE_URL, "==2.0.1"),
