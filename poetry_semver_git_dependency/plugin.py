@@ -33,19 +33,12 @@ class SemverGitDependencyPlugin(Plugin):
     def override_semver_dependency(self, poetry: Poetry, io: IO) -> None:
         io.write_line("Overriding semver git dependencies...")
 
-        repository_pool = poetry.pool
-        updated_dependency_groups: dict[str, DependencyGroup] = {}
-        found_semver_tag = False
-
         # patch dependency if it is a semver git dependency
+        found_semver_tag = False
         for group_name, group_dep in poetry.package._dependency_groups.items():
             updated_deps = []
             for dep in group_dep.dependencies:
-                if not dep.is_vcs():
-                    updated_deps.append(dep)
-                    continue
-
-                if dep.source_reference is None or not is_sem_ver_constraint(
+                if not dep.is_vcs() or dep.source_reference is None or dep.source_url is None or not is_sem_ver_constraint(
                     dep.source_reference
                 ):
                     updated_deps.append(dep)
@@ -62,8 +55,6 @@ class SemverGitDependencyPlugin(Plugin):
         # add semver git repository if semver git dependency is found
         if found_semver_tag:
             semver_git_repo = SemverGitRepository()
-            repository_pool.add_repository(
+            poetry.pool.add_repository(
                 semver_git_repo
             )  # this is used by all semver git dependencies
-
-        poetry.package._dependency_groups = updated_dependency_groups
