@@ -11,37 +11,40 @@ from poetry_semver_git_dependency.core.packages.semver_git_dependency import (
 from poetry_semver_git_dependency.repositories.semver_git_repository import (
     SemverGitRepository,
 )
+from tests.mock_constants import MOCK_GIT_SOURCE_URL, MOCK_PROJECT_NAME
+
+GIT_1_0_1_PACKAGE = Package(
+    MOCK_PROJECT_NAME,
+    "1.0.0",
+    source_type="git",
+    source_url=MOCK_GIT_SOURCE_URL,
+    source_reference="1.0.0",
+)
+GIT_2_0_1_PACKAGE = Package(
+    MOCK_PROJECT_NAME,
+    "2.0.1",
+    source_type="git",
+    source_url=MOCK_GIT_SOURCE_URL,
+    source_reference="2.0.1",
+)
+GIT_2_1_1_PACKAGE = Package(
+    MOCK_PROJECT_NAME,
+    "2.1.1",
+    source_type="git",
+    source_url=MOCK_GIT_SOURCE_URL,
+    source_reference="2.1.1",
+)
 
 
 @pytest.mark.parametrize(
     ("semver_git_dep", "expected_packages"),
     [
         (
-            SemverGitDependency(
-                "mock-project", "https://github.com/mock-project", ">=1.0"
-            ),
+            SemverGitDependency(MOCK_PROJECT_NAME, MOCK_GIT_SOURCE_URL, ">=1.0"),
             [
-                Package(
-                    "mock-project",
-                    "1.0.0",
-                    source_type="git",
-                    source_url="https://github.com/mock-project",
-                    source_reference="1.0.0",
-                ),
-                Package(
-                    "mock-project",
-                    "2.0.1",
-                    source_type="git",
-                    source_url="https://github.com/mock-project",
-                    source_reference="2.0.1",
-                ),
-                Package(
-                    "mock-project",
-                    "2.1.1",
-                    source_type="git",
-                    source_url="https://github.com/mock-project",
-                    source_reference="2.1.1",
-                ),
+                GIT_1_0_1_PACKAGE,
+                GIT_2_0_1_PACKAGE,
+                GIT_2_1_1_PACKAGE
             ],
         ),
     ],
@@ -61,6 +64,4 @@ def test___find_packages_from_dep(
 def test_fail___find_packages_from_dep() -> None:
     repo = SemverGitRepository()
     with pytest.raises(ValueError):
-        repo._find_packages_from_dep(
-            Dependency("some-project", ">=1.0")
-        )
+        repo._find_packages_from_dep(Dependency("some-project", ">=1.0"))
