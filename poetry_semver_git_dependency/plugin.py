@@ -1,8 +1,9 @@
 import sys
-from typing import TYPE_CHECKING
 
 from poetry.plugins.plugin import Plugin
 from poetry.core.packages.dependency_group import DependencyGroup
+from poetry.poetry import Poetry
+from cleo.io.io import IO
 
 from poetry_semver_git_dependency.core.packages.semver_git_dependency import (
     SemverGitDependency,
@@ -13,10 +14,6 @@ from poetry_semver_git_dependency.repositories.semver_git_repository import (
 from poetry_semver_git_dependency.core.constraints.version.parser import (
     is_sem_ver_constraint,
 )
-
-if TYPE_CHECKING:
-    from poetry.plugins.plugin import Poetry
-    from poetry.plugins.plugin import IO
 
 
 class SemverGitDependencyPlugin(Plugin):
