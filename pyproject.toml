@@ -20,3 +20,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.plugins."poetry.plugin"]
 "poetry-semver-git-dependency" = "poetry_semver_git_dependency.plugin:SemverGitDependencyPlugin"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.9.1"
+mypy = "^1.14.1"
+
