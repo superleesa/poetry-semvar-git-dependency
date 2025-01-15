@@ -3,6 +3,7 @@ from unittest.mock import Mock
 import pytest
 from dulwich.repo import Repo
 from poetry.core.packages.package import Package
+from poetry.core.packages.dependency import Dependency
 
 from poetry_semver_git_dependency.core.packages.semver_git_dependency import (
     SemverGitDependency,
@@ -55,3 +56,11 @@ def test___find_packages_from_dep(
     repo = SemverGitRepository()
     repo.Git = mock_Git
     assert set(repo._find_packages_from_dep(semver_git_dep)) == set(expected_packages)
+
+
+def test_fail___find_packages_from_dep() -> None:
+    repo = SemverGitRepository()
+    with pytest.raises(ValueError):
+        repo._find_packages_from_dep(
+            Dependency("some-project", ">=1.0")
+        )
