@@ -1,4 +1,4 @@
-[tool.poetry]
+[project]
 name = "mock-project"
 version = "1.0.0"
 description = "Mock project for v1.0"
@@ -7,5 +7,5 @@ authors = [
 ]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
